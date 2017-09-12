@@ -1,26 +1,30 @@
-import {Component} from "@angular/core";
-import {cat} from "./cat";
+import {Component, OnInit} from "@angular/core";
+import {Pet} from "./shared/pet";
+import { PetService } from "./core/pet.service";
 
-/* This is the template file - component*/
-/* Everything in angular is a component , its like a small MVC
-* they implement three ways - dumb display component
-* smart components (business) - child parent
-* routing component - trying to route with high level business routing */
-
-/* components have the tree structure like child parent */
-
-/* nested components - can access @ViewChild like the child -parent*/
-
-/**/
-
-@Component ({
-    selector : "herding-app" ,
-    template : require("./app.component.html"),
-   /*  styleUrls :  [accepts the array and has the css mapped in it ]*/
+@Component({
+	selector: "herding-cats",
+	template: require("./app.component.html")
 })
+export class AppComponent implements OnInit {
 
-export class AppComponent{
+	selectedPet: Pet;
+	favouritePet: Pet;
+	
+	constructor(private petService: PetService) {
+	}
+
+	ngOnInit(): void {
+		this.favouritePet = this.petService.favouritePet;
+	}
+
+	selectPet(pet: Pet): void {
+		this.selectedPet = pet;
+	}
+
+	selectFavourite(pet: Pet): void {
+		this.favouritePet = pet;
+	}
 
 
-
-   }
+}
