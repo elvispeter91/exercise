@@ -3,10 +3,11 @@ import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {CatDetailsComponent} from "./cat-details.component";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
-    imports: [BrowserModule], /* other module dependencies*/
+    imports: [BrowserModule,FormsModule], /* other module dependencies*/
     declarations :[AppComponent,CatDetailsComponent],
     bootstrap:[AppComponent]
     /* Module in other contexts which needs to be exports we use export:*/

@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {cat} from "./cat";
 
+/* This is the template file - component*/
 /* Everything in angular is a component , its like a small MVC
 * they implement three ways - dumb display component
 * smart components (business) - child parent
@@ -14,21 +15,12 @@ import {cat} from "./cat";
 
 @Component ({
     selector : "herding-app" ,
-    template : require("./app.component.html")
+    template : require("./app.component.html"),
+   /*  styleUrls :  [accepts the array and has the css mapped in it ]*/
 })
 
 export class AppComponent{
 
-    cat1 = new cat("kitty","Persian","White");
-    cat2 = new cat("kitty2", "Canadian", "Grey");
-    title = "Cats Information";
-
-    selectedCat:cat;
-
-    selectCat(cat: cat): any {
-        this.selectedCat = cat;
-    }
 
 
-
-}
+   }

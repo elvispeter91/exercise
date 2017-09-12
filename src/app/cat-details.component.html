@@ -1,3 +1,26 @@
-<p>Name: {{catobj.name}}</p>
-<p>Breed: {{catobj.breed}}</p>
-<p>Description: {{catobj.description}}</p>
+<h1>{{title}}</h1>
+<h1>My favorite cat is {{cat.name}}</h1>
+<p>Cats:</p>
+<ul>
+    <li *ngFor="let cat of cats" (click)="selectCat(cat)" >
+        {{ cat.name }}
+    </li>
+</ul>
+
+<p>Selected Cat Name...</p>
+<p *ngIf="isfound; else noselect">{{catname}}</p>
+
+<ng-template #noselect>
+    <p>No cat is selected...</p>
+</ng-template>
+
+<button (click)="setAsFavourite(selectedCat)">set as favorite Cat </button>
+
+<div>
+    <label for="name">Enter the cat Name</label>
+    <input id="cat" type="text" [(ngModel)]="catname">
+</div>
+
+<p>Name: {{selectedCat.name}}</p>
+<p>Breed: {{selectedCat.breed}}</p>
+<p>Description: {{selectedCat.description}}</p>
