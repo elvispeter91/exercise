@@ -4,11 +4,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Pet} from "../shared/pet";
 
 @Component({
-	selector: "cat-detail",
-	template: require("./cat-detail.component.html")
+	selector: "dog-detail",
+	template: require("./dog-detail.component.html")
 })
-export class CatDetailComponent implements OnInit {
-	cat: Pet;
+export class DogDetailComponent implements OnInit {
+	dog: Pet;
 	constructor(private petService: PetService, private route:ActivatedRoute, private router:Router) {
 		
 	}
@@ -18,24 +18,23 @@ export class CatDetailComponent implements OnInit {
 		if ( isNaN(id)) {
 			this.goBack();
 		}
-		this.cat = this.petService.getPet(id);
+		this.dog = this.petService.getPet(id);
 	}
 	
 	setAsFavourite(): any {
-		this.petService.favouritePet = this.cat;
+		this.petService.favouritePet = this.dog;
 	}
 	
 	goBack(): any {
-		this.router.navigate(["cats"]);
+		this.router.navigate(["dogs"]);
 	}
 
-
-    editCat(): any {
-        this.router.navigate(["cats", this.cat.id, "edit"]);
+    editDog(): any {
+        this.router.navigate(["dogs", this.dog.id, "edit"]);
     }
 
-    deleteCat(): any {
-        this.petService.deletePet(this.cat);
+    deleteDog(): any {
+        this.petService.deletePet(this.dog);
         this.goBack();
     }
 }

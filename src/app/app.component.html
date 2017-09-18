@@ -4,4 +4,4 @@
 
 <pet-list (mypet)="selectPet($event)"></pet-list>
 
-<cat-detail (isFavourite)="selectFavourite($event)" *ngIf="selectedPet" [cat]="selectedPet"></cat-detail>
+<cat-detail (isFavourite)="selectFavourite($event)" *ngIf="selectedPet" [pet]="selectedPet"></cat-detail>

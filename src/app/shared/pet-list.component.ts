@@ -1,22 +1,40 @@
-import {Component, OnInit, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Pet} from "./pet";
 import {PetService} from "../core/pet.service";
+import {Router,ActivatedRoute} from "@angular/router";
+import { Observable } from "rxjs";
 
 @Component({
     selector: "pet-list",
     template: require("./pet-list.component.html")
 })
 export class PetListComponent implements OnInit {
-    pets: Pet[];
-    @Output('mypet') selectedPet: EventEmitter<Pet> = new EventEmitter<Pet>();
+    favouritePet: Pet;
+    pets: Observable<Pet[]>;
 
-    constructor(private petService: PetService) {}
+    private type: "cat" | "dog";
 
-    ngOnInit (): any {
-        this.pets = this.petService.getPetList();
+    constructor(private petService: PetService, private router: Router ,private route: ActivatedRoute) {
+    this.type = route.snapshot.data["type"];
+}
+    ngOnInit ():any {
+
+        // this.pets = this.petService.getPetList(this.type);
+        // this.favouritePet = this.petService.favouritePet;
+
+        this.pets = this.petService.getPetList(this.type).reduce((array, pet) => {
+            array.push(pet);
+            return array;
+        }, []);
+
+        this.favouritePet = this.petService.favouritePet;
     }
 
     selectPet(pet: Pet): any {
-        this.selectedPet.emit(pet);
+        this.router.navigate([this.type + "s", pet.id]);
+    }
+
+    addPet(): any {
+        this.router.navigate([this.type + "s", "new"]);
     }
 }
