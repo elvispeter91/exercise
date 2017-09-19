@@ -19,16 +19,9 @@ export class PetListComponent implements OnInit {
 }
     ngOnInit ():any {
 
-        // this.pets = this.petService.getPetList(this.type);
-        // this.favouritePet = this.petService.favouritePet;
-
-        this.pets = this.petService.getPetList(this.type).reduce((array, pet) => {
-            array.push(pet);
-            return array;
-        }, []);
-
-        this.favouritePet = this.petService.favouritePet;
-    }
+		this.pets = this.petService.getPetList(this.type);
+		this.favouritePet = this.petService.favouritePet;
+	}
 
     selectPet(pet: Pet): any {
         this.router.navigate([this.type + "s", pet.id]);

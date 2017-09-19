@@ -7,8 +7,9 @@ import {CatRoutingModule} from "./cat-routing.module";
 import {CommonModule} from "@angular/common";
 import {CatFormComponent} from "./cat-form.component";
 import {SharedModule} from "../shared/shared.module";
+import { HttpModule } from "@angular/http";
 @NgModule({
-    imports: [CommonModule, FormsModule, CatRoutingModule, SharedModule],
-    declarations: [CatDetailComponent, CatYearsPipe, CatsComponent, CatFormComponent],
+	imports: [CommonModule, FormsModule, CatRoutingModule, SharedModule, HttpModule],
+	declarations: [CatDetailComponent, CatYearsPipe, CatsComponent, CatFormComponent],
 })
 export class CatModule {}

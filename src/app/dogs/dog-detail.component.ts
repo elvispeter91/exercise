@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {PetService} from "../core/pet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Pet} from "../shared/pet";
+import { Subscription } from "rxjs";
 
 @Component({
 	selector: "dog-detail",
@@ -9,18 +10,35 @@ import {Pet} from "../shared/pet";
 })
 export class DogDetailComponent implements OnInit {
 	dog: Pet;
+
+    subs: Subscription[] = [];
+
+
 	constructor(private petService: PetService, private route:ActivatedRoute, private router:Router) {
 		
 	}
 	
 	ngOnInit(): any {
 		let id: number = parseInt(this.route.snapshot.params["id"]);
-		if ( isNaN(id)) {
-			this.goBack();
-		}
-		this.dog = this.petService.getPet(id);
+		// if ( isNaN(id)) {
+		// 	this.goBack();
+		// }
+		// this.dog = this.petService.getPet(id);
+
+		this.subs.push(this.petService.getPet(id, 'dog').subscribe((dog) => {
+            this.dog = dog;
+        }));
+
 	}
-	
+
+    ngOnDestroy(): any {
+        if ( this.subs ) {
+            this.subs.forEach(sub => sub.unsubscribe());
+        }
+
+        this.subs = [];
+    }
+
 	setAsFavourite(): any {
 		this.petService.favouritePet = this.dog;
 	}
@@ -33,8 +51,14 @@ export class DogDetailComponent implements OnInit {
         this.router.navigate(["dogs", this.dog.id, "edit"]);
     }
 
+    // deleteDog(): any {
+    //     this.petService.deletePet(this.dog);
+    //     this.goBack();
+    // }
+
     deleteDog(): any {
-        this.petService.deletePet(this.dog);
-        this.goBack();
+        this.subs.push(this.petService.deletePet(this.dog).subscribe((result) => {
+            this.goBack();
+        }));
     }
 }
