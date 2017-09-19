@@ -8,8 +8,10 @@ import * as moment from "moment";
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: "dog-form",
-    template: require("./dog-form.component.html")
+	selector: "dog-form",
+	template: require("./dog-form.component.html"),
+	styles: [require("./dog-form.component.scss").toString()]
+
 })
 export class DogFormComponent implements OnInit, OnDestroy {
 	dog: Pet;
@@ -28,34 +30,23 @@ export class DogFormComponent implements OnInit, OnDestroy {
 		})
 	}
 
-    ngOnInit(): any {
-        let id: number = parseInt(this.route.snapshot.params["id"]);
-        if ( isNaN(id)) {
-            this.dog = new Pet("dog");
-            return;
-        }
-
-        // This is example for form module
-        // this.dog = this.petService.getPet(id);
-        //
-        // if ( !this.dog ) {
-        //     this.dog = new Pet("dog");
-        // }
-        //
-        // this.dogForm.patchValue(this.dog);
-        // this.dogForm.get("birthday").setValue(this.birthdayForInput(), true);
-
+	ngOnInit(): any {
+		let id: number = parseInt(this.route.snapshot.params["id"]);
+		if ( isNaN(id)) {
+			this.dog = new Pet("dog");
+			return;
+		}
 		this.subs.push(this.petService.getPet(id, 'dog').subscribe(
-            (dog) => {
-                this.dog = dog;
-                this.updateDogForm();
-            },
-            (error) => {
-                this.dog = new Pet('dog');
-                this.updateDogForm();
-            }));
+			(dog) => {
+				this.dog = dog;
+				this.updateDogForm();
+			},
+			(error) => {
+				this.dog = new Pet('dog');
+				this.updateDogForm();
+			}));
 
-    }
+	}
 
 	ngOnDestroy(): any {
 		if ( this.subs ) {
@@ -73,16 +64,16 @@ export class DogFormComponent implements OnInit, OnDestroy {
 		return moment(dateString, this.dateFormat).toDate();
 	}
 
-    saveDog(): any {
-        this.dog = Object.assign(this.dog, this.dogForm.value, { birthday: this.setBirthday(this.dogForm.get("birthday").value)});
-        //this.petService.savePet(this.dog);
-        this.subs.push(this.petService.savePet(this.dog).subscribe((result) => {
+
+	saveDog(): any {
+		this.dog = Object.assign(this.dog, this.dogForm.value, { birthday: this.setBirthday(this.dogForm.get("birthday").value)});
+		this.subs.push(this.petService.savePet(this.dog).subscribe((result) => {
 			this.router.navigate(["dogs", this.dog.id]);
 		}));
-    }
+	}
 
-    private updateDogForm(): void {
-        this.dogForm.patchValue(this.dog);
-        this.dogForm.get("birthday").setValue(this.birthdayForInput(), true);
-    }
+	private updateDogForm(): void {
+		this.dogForm.patchValue(this.dog);
+		this.dogForm.get("birthday").setValue(this.birthdayForInput(), true);
+	}
 }

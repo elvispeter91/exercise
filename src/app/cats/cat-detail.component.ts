@@ -1,107 +1,56 @@
-// import {Component, OnInit} from "@angular/core";
-// import {PetService} from "../core/pet.service";
-// import {ActivatedRoute, Router} from "@angular/router";
-// import {Pet} from "../shared/pet";
-// import { Subscription } from "rxjs";
-// @Component({
-//     selector: "cat-detail",
-//     template: require("./cat-detail.component.html")
-// })
-// export class CatDetailComponent implements OnInit {
-//     cat: Pet;
-//     subs: Subscription[] = [];
-//
-//     constructor(private petService: PetService, private route:ActivatedRoute, private router:Router) {
-//
-//     }
-//
-//     ngOnInit(): any {
-//         let id: number = parseInt(this.route.snapshot.params["id"]);
-//         this.subs.push(this.petService.getPet(id).subscribe((cat) => {
-//             this.cat = cat;
-//         }));
-//     }
-//
-//     ngOnDestroy(): any {
-//         if ( this.subs ) {
-//             this.subs.forEach(sub => sub.unsubscribe());
-//         }
-//
-//         this.subs = [];
-//     }
-//
-//     setAsFavourite(): any {
-//         this.petService.favouritePet = this.cat;
-//     }
-//
-//     goBack(): any {
-//         this.router.navigate(["cats"]);
-//     }
-//
-//     editCat(): any {
-//         this.router.navigate(["cats", this.cat.id, "edit"]);
-//     }
-//
-//     deleteCat(): any {
-//         this.subs.push(this.petService.deletePet(this.cat).subscribe((result) => {
-//             this.goBack();
-//         }));
-//     }
-// }
-
-
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {PetService} from "../core/pet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Pet} from "../shared/pet";
 import {Subscription} from "rxjs";
 @Component({
-    selector: "cat-detail",
-    template: require("./cat-detail.component.html")
+	selector: "cat-detail",
+	template: require("./cat-detail.component.html"),
+	styles: [require("./cat-detail.component.scss").toString()]
 })
 export class CatDetailComponent implements OnInit, OnDestroy {
-    cat: Pet;
-    subs: Subscription[] = [];
+	cat: Pet;
+	subs: Subscription[] = [];
 
-    constructor(private petService: PetService, private route:ActivatedRoute, private router:Router) {
+	constructor(private petService: PetService, private route:ActivatedRoute, private router:Router) {
 
-    }
+	}
 
-    ngOnInit(): any {
-        let id: number = parseInt(this.route.snapshot.params["id"]);
-        if ( isNaN(id)) {
-            this.goBack();
-        }
+	ngOnInit(): any {
+		let id: number = parseInt(this.route.snapshot.params["id"]);
+		if ( isNaN(id)) {
+			this.goBack();
+		}
 
-        this.subs.push(this.petService.getPet(id, "cat").subscribe(
-            (pet) => {
-                this.cat = pet;
-            }
-        ));
-    }
+		this.subs.push(this.petService.getPet(id, "cat").subscribe(
+			(pet) => {
+				this.cat = pet;
+			}
+		));
+	}
 
-    ngOnDestroy(): any {
-        if ( this.subs ) {
-            this.subs.forEach(sub => sub.unsubscribe());
-        }
+	ngOnDestroy(): any {
+		if ( this.subs ) {
+			this.subs.forEach(sub => sub.unsubscribe());
+		}
 
-        this.subs = [];
-    }
+		this.subs = [];
+	}
 
-    setAsFavourite(): any {
-        this.petService.favouritePet = this.cat;
-    }
+	setAsFavourite(): any {
+		this.petService.favouritePet = this.cat;
+	}
 
-    goBack(): any {
-        this.router.navigate(["cats"]);
-    }
+	goBack(): any {
+		this.router.navigate(["cats"]);
+	}
 
-    editCat(): any {
-        this.router.navigate(["cats", this.cat.id, "edit"]);
-    }
+	editCat(): any {
+		this.router.navigate(["cats", this.cat.id, "edit"]);
+	}
 
-    deleteCat(): any {
-        this.subs.push(this.petService.deletePet(this.cat).subscribe());
-        this.goBack();
-    }
+	deleteCat(): any {
+		this.subs.push(this.petService.deletePet(this.cat).subscribe());
+		this.goBack();
+	}
 }

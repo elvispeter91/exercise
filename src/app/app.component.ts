@@ -1,11 +1,12 @@
-import {Component} from "@angular/core";
+import { Component, ViewEncapsulation } from "@angular/core";
 @Component({
 	selector: "herding-cats",
 	template: `<h1>Herding Cats</h1>
 				<nav>
 					<a [routerLink]="['cats']">Cats</a> or <a [routerLink]="['dogs']">Dogs</a>
 				</nav>
-    			<app-observable></app-observable>
-			   <router-outlet></router-outlet>`
+			   <router-outlet></router-outlet>`,
+	encapsulation: ViewEncapsulation.None,
+	styles: [require('./app.component.scss').toString()]
 })
 export class AppComponent {}

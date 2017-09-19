@@ -6,8 +6,7 @@ import * as moment from "moment";
 })
 export class DogYearsPipe implements PipeTransform {
 	transform(value: string): number {
-
-			return Math.floor(moment().diff(moment(value), "years", true)*7);
-
-    }
+		return Math.floor(moment().diff(moment(value), "years", true) * 7);
+		
+	}
 }

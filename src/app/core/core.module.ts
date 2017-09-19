@@ -1,10 +1,9 @@
 import {NgModule} from "@angular/core";
 import {PetService} from "./pet.service";
 import {GuardDogService} from "./guard-dog.service";
-import { JSONOptions } from "./json-options.service";
-import { RequestOptions } from "@angular/http";
+import { HttpWrapper } from "./http-wrapper.service";
 
 @NgModule({
-    providers: [PetService, GuardDogService, { provide: RequestOptions, useClass: JSONOptions }]
+    providers: [PetService, GuardDogService, HttpWrapper]
 })
 export class CoreModule {}
