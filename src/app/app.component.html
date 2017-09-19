@@ -1,7 +1,9 @@
 <h1>Herding Cats</h1>
+<app-observable></app-observable>
 
 <p *ngIf="favouritePet">{{favouritePet.name}} is my favourite!</p>
 
 <pet-list (mypet)="selectPet($event)"></pet-list>
+
 
 <cat-detail (isFavourite)="selectFavourite($event)" *ngIf="selectedPet" [pet]="selectedPet"></cat-detail>

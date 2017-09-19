@@ -5,6 +5,7 @@ import {Component} from "@angular/core";
 				<nav>
 					<a [routerLink]="['cats']">Cats</a> or <a [routerLink]="['dogs']">Dogs</a>
 				</nav>
+    			<app-observable></app-observable>
 			   <router-outlet></router-outlet>`
 })
 export class AppComponent {}
